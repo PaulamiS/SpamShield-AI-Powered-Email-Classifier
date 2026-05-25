@@ -3,82 +3,75 @@ import pickle
 import string
 import nltk
 
-# Download required NLTK data
-nltk.download('punkt')
-nltk.download('stopwords')
+# ==============================
+# NLTK SAFE SETUP FOR RENDER
+# ==============================
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
+nltk.download('punkt_tab', quiet=True)
 
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+from nltk.tokenize import word_tokenize
 
-# Initialize Porter Stemmer
 ps = PorterStemmer()
 
+# Preload stopwords (IMPORTANT for speed)
+stop_words = set(stopwords.words('english'))
 
-# Text preprocessing function
+
+# ==============================
+# TEXT PREPROCESSING FUNCTION
+# ==============================
 def transform_text(text):
-
-    # Convert to lowercase
     text = text.lower()
 
     # Tokenize
-    text = nltk.word_tokenize(text)
+    text = word_tokenize(text)
 
-    y = []
+    # Remove non-alphanumeric
+    text = [i for i in text if i.isalnum()]
 
-    # Remove special characters
-    for i in text:
-        if i.isalnum():
-            y.append(i)
-
-    text = y[:]
-    y.clear()
-
-    # Remove stopwords and punctuation
-    for i in text:
-        if i not in stopwords.words('english') and i not in string.punctuation:
-            y.append(i)
-
-    text = y[:]
-    y.clear()
+    # Remove stopwords + punctuation
+    text = [i for i in text if i not in stop_words and i not in string.punctuation]
 
     # Stemming
-    for i in text:
-        y.append(ps.stem(i))
+    text = [ps.stem(i) for i in text]
 
-    return " ".join(y)
+    return " ".join(text)
 
 
-# Load vectorizer and model
+# ==============================
+# LOAD MODEL
+# ==============================
 tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
 model = pickle.load(open('model.pkl', 'rb'))
 
 
-# Streamlit UI
+# ==============================
+# STREAMLIT UI
+# ==============================
 st.title("📩 Email/SMS Spam Classifier")
 
-# User input
 input_sms = st.text_area("Enter your message")
 
-
-# Prediction button
 if st.button('Predict'):
 
     if input_sms.strip() == "":
         st.warning("Please enter a message")
     else:
 
-        # Preprocess the input text
+        # Preprocess
         transformed_sms = transform_text(input_sms)
 
-        # Vectorize the text
-        # IMPORTANT: convert sparse matrix to dense
+        # Vectorize
         vector_input = tfidf.transform([transformed_sms]).toarray()
 
         # Predict
         result = model.predict(vector_input)[0]
 
-        # Display result
+        # Output
         if result == 1:
-            st.header("🚫 Spam Message")
+            st.error("🚫 Spam Message")
         else:
-            st.header("✅ Not Spam")
+            st.success("✅ Not Spam")
