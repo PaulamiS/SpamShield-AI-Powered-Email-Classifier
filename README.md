@@ -8,6 +8,16 @@ An intelligent Machine Learning web app built with **Streamlit** that detects wh
 ## 🚀 Live Demo
 https://spamshield-ai-powered-email-classifier.onrender.com/
 
+Screenshot:
+
+<img width="532" height="229" alt="image" src="https://github.com/user-attachments/assets/5b7be5cf-5be1-4c3c-b396-fccbb8d970f1" />
+
+<img width="506" height="263" alt="image" src="https://github.com/user-attachments/assets/507fb1bf-7acc-4aa5-8a88-0cb5d651b7dd" />
+
+
+
+
+
 ---
 
 ## 📌 Project Overview
