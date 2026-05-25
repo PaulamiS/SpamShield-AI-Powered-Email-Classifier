@@ -1,12 +1,12 @@
-# SpamShield-AI-Powered-Email-Classifier
-# 📩 SpamShield – AI Powered Email/SMS Spam Classifier
+
+# 📩 SpamShield – AI-Powered Email/SMS Spam Classifier
 
 An intelligent Machine Learning web app built with **Streamlit** that detects whether a given SMS/email message is **Spam or Not Spam** using NLP and ML techniques.
 
 ---
 
 ## 🚀 Live Demo
-👉 https://your-app-name.onrender.com
+https://spamshield-ai-powered-email-classifier.onrender.com/
 
 ---
 
@@ -64,6 +64,57 @@ SpamShield-AI-Powered-Email-Classifier/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/SpamShield-AI-Powered-Email-Classifier.git
-cd SpamShield-AI-Powered-Email-Classifier
+https://github.com/PaulamiS/SpamShield-AI-Powered-Email-Classifier.git
+## 2. Create a virtual environment
+python -m venv venv
+venv\Scripts\activate   # Windows
+
+3. Install dependencies
+pip install -r requirements.txt
+
+4. Run the app locally
+streamlit run app.py
+
+requirements.txt
+
+Make sure your file includes:
+streamlit
+numpy
+pandas
+scikit-learn
+nltk
+
+Deployment (Render)
+Steps:
+Push code to GitHub
+Go to Render Dashboard
+Create New Web Service
+Connect your repository
+Build Command:
+pip install -r requirements.txt
+
+Start Command:
+streamlit run app.py --server.port 10000 --server.address 0.0.0.0
+
+Click Deploy 🚀
+📊 Model Details
+Algorithm: Machine Learning classifier (Naive Bayes / SVM)
+Feature extraction: TF-IDF Vectorizer
+NLP preprocessing: NLTK
+
+🎯 Features
+Real-time spam detection
+Simple Streamlit UI
+Fast predictions
+Lightweight ML model
+Fully deployed web app
+
+Author
+
+Paulami Sahu
+
+GitHub: https://github.com/PaulamiS
+Email: sahupaulami97@gmail.com
+
+
 
